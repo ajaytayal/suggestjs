@@ -1063,14 +1063,13 @@
             _t.dropCont.on('click', '.sugTouple', onSuggest.call(_t));
 
             // isFirstCall : if multiple suggestor call in a page then version check only goes for once
-            var localVersionValue = localStorage.getItem('cache-storage.sgtr.__suggest_versions') || localStorage.getItem('cache-storage.sgtr.__infoEdge/versions')
-			if('undefined' != typeof localVersionValue && '' != localVersionValue &&  null != localVersionValue){
-				var localVersion = $.parseJSON(localVersionValue), 
-					currentUTCDateMS = (new Date()).getTime(),
-					dateCheckedCondition = (24 * 60 * 60 * 1000)<(currentUTCDateMS- localVersion.lastAccessed);
-			}else{
-				var dateCheckedCondition=true;
-			}
+            var localVersionValue = localStorage.getItem('cache-storage.sgtr.__suggest_versions') || localStorage.getItem('cache-storage.sgtr.__infoEdge/versions'),
+		dateCheckedCondition=true;
+		if('undefined' != typeof localVersionValue && '' != localVersionValue &&  null != localVersionValue){
+			var localVersion = $.parseJSON(localVersionValue), 
+			currentUTCDateMS = (new Date()).getTime();
+			dateCheckedCondition = (24 * 60 * 60 * 1000)<(currentUTCDateMS- localVersion.lastAccessed);
+		}
             if (!window.isFistCall && params.url.prefetch && checkLS() && params.isPrefetch && dateCheckedCondition) {
                 callPrefetchData.call(_t);
                 isFistCall = true;
